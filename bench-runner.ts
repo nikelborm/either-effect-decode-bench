@@ -46,11 +46,14 @@ const collected = new Map<string, Sample[]>(BENCHES.map((b) => [b.label, []]));
 
 for (let round = 1; round <= ROUNDS; round++) {
 
+  // Round 1 is a discarded warmup (cold JIT in fresh processes) — run it but
+  // don't collect its samples.
+  const warmup = round === 1;
   for (const bench of BENCHES) {
     const sample = await runBench(bench);
-    collected.get(bench.label)!.push(sample);
+    if (!warmup) collected.get(bench.label)!.push(sample);
     console.log(
-      `round ${round}  ${bench.label.padEnd(12)}  ` +
+      `round ${round}${warmup ? " (warmup, discarded)" : ""}  ${bench.label.padEnd(12)}  ` +
         `total=${sample.totalTime.toFixed(2)}ms  perOp=${sample.perOp.toFixed(6)}ms`,
     );
   }
@@ -60,7 +63,7 @@ for (let round = 1; round <= ROUNDS; round++) {
 const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0);
 const avg = (xs: number[]) => sum(xs) / xs.length;
 
-console.log(`\n=== Aggregate over ${ROUNDS} rounds (bench-reported numbers only) ===`);
+console.log(`\n=== Aggregate over ${ROUNDS - 1} rounds (round 1 discarded; bench-reported numbers only) ===`);
 for (const bench of BENCHES) {
   const samples = collected.get(bench.label)!;
   const totals = samples.map((s) => s.totalTime);
