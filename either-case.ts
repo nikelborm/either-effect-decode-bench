@@ -2,7 +2,6 @@ import { Schema } from "effect";
 import * as Effect from "effect/Effect";
 import { TelemetryEvent, SAMPLES, N, REPS } from "./schema";
 
-
 let totalTime = 0;
 
 const decodeEither = Schema.decodeEither(TelemetryEvent);

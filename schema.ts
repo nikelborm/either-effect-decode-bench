@@ -56,7 +56,7 @@ export const N = 10_000;
 
 
 
-export const REPS = 150;
+export const REPS = 50;
 
 
 export const SEED = 42;
