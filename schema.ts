@@ -69,3 +69,18 @@ function makeSamples(): TelemetryEventEncoded[] {
 }
 
 export const SAMPLES: ReadonlyArray<TelemetryEventEncoded> = makeSamples();
+
+/**
+ * Busy-spin for `ms` to ramp the CPU out of its idle/low-power P-state before a
+ * timed region. Run inside each bench right before measuring so the core that
+ * executes the timed loop is already at boosted clocks — this removes the
+ * first-process "cold CPU" outlier without discarding any round.
+ */
+export function warmupCpu(ms = 500): void {
+  const end = performance.now() + ms;
+  let sink = 0;
+  while (performance.now() < end) sink += Math.sqrt(sink + 1);
+  // Keep `sink` observable and gate on an unpredictable Math.random() so the
+  // JIT can't prove the loop is dead and elide it — but it ~never throws.
+  if (Math.random() < 0.00000000000000001 && sink >= 0) throw new Error(String(sink));
+}

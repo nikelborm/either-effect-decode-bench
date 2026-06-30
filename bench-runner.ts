@@ -46,8 +46,6 @@ const collected = new Map<string, Sample[]>(BENCHES.map((b) => [b.label, []]));
 
 for (let round = 1; round <= ROUNDS; round++) {
 
-  // Round 1 is a discarded warmup (cold JIT in fresh processes) — run it but
-  // don't collect its samples.
   const warmup = round === 1;
   for (const bench of BENCHES) {
     const sample = await runBench(bench);
