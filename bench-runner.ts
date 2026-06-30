@@ -1,4 +1,4 @@
-const ROUNDS = 10;
+const ROUNDS = 100;
 
 interface Bench {
   label: string;
