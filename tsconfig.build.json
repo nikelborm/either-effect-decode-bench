@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist",
+    // Emitting real .js files, so .ts-extension imports must be off.
+    "allowImportingTsExtensions": false
+  },
+  "include": ["schema.ts", "effect-case.ts", "either-case.ts", "bench-runner.ts"]
+}

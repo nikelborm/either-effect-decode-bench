@@ -3,6 +3,10 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "bench-prepare": "tsgo -p tsconfig.build.json",
+    "bench":"bun dist/bench-runner.js"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
@@ -10,6 +14,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260630.1",
     "effect": "^3.21.4",
     "fast-check": "^4.8.0"
   }

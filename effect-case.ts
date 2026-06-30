@@ -20,6 +20,5 @@ Effect.runSync(
 );
 
 const ops = N * REPS;
-console.log(`decodeEffect via Effect.gen — ${ops} ops (${N} samples x ${REPS} reps)`);
-console.log(`  total: ${totalTime.toFixed(2)} ms`);
-console.log(`  per op: ${(totalTime / ops).toFixed(4)} ms`);
+
+console.log(JSON.stringify({ decodeEffect: { totalTime, perOp: totalTime / ops } }))
