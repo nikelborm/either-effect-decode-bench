@@ -1,0 +1,16 @@
+{
+  "name": "tmp.ancypec3rr",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "effect": "^3.21.4",
+    "fast-check": "^4.8.0"
+  }
+}
